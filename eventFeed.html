@@ -1,0 +1,28 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
+   <script type="text/javascript" src="server.js"></script>
+        <script type="text/javascript" src="eventFeedController.js"></script>
+<style>
+.low { color: green; }
+.normal { color: orange; }
+.high { color: red; font-weight: bold; }
+</style>
+
+<div ng-app="app" ng-controller="eventFeedController">
+
+<h4>Events </h4>
+<form ng-submit="submitEvent()">
+  <input ng-model="newEvent.type" placeholder="Type" required>
+  <input ng-model="newEvent.message" placeholder="Message" required>
+  <select ng-model="newEvent.priority" required>
+    <option value="low">Low</option>
+    <option value="normal">Normal</option>
+    <option value="high">High</option>
+  </select>
+  <button type="submit">Submit Event</button>
+</form>
+<p ng-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
+<p>Event Counts: Low: {{ priorityCounts.low }}, Normal: {{ priorityCounts.normal }}, High: {{ priorityCounts.high }}</p>
+<div ng-repeat="event in events">
+<p ng-class="event.priority">{{ event.type }}: {{ event.message }} ({{ event.priority }})</p>
+</div>
+</div>
